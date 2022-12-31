@@ -5,6 +5,8 @@ const reducerFunction = (state = {counter:10},action) => {
         return {counter : state.counter + 1}
     } else if(action.type == 'DECREMENT'){
         return {counter : state.counter - 1}
+    } else if(action.type == 'INCBYNUM'){
+        return {counter : state.counter + parseInt(action.payload)}
     } else {
         return state
     }
