@@ -4,6 +4,8 @@ function App() {
   const [peopleNum,setPeopleNum] = useState(0);
   const [pieces,setPieces] = useState(0);
 
+  const [list,setLIst] = useState([]);
+
   const calValue = () => {
     let Number = parseInt(peopleNum);
     let slices = parseInt(pieces);
@@ -11,25 +13,39 @@ function App() {
     const pricesName = [];
 
     let totalNumOfslices = Number * slices //total number of slices
-
+    
     if(totalNumOfslices <= 4){
-      pricesName.push('5 inch',3);
+      pricesName.push({name:'5 inch',price :3});
      
     } else if(totalNumOfslices > 4 && totalNumOfslices < 6){
-      pricesName.push('7 inch',5);
+      pricesName.push({name:'7 inch',price :5});
       
     } else if(totalNumOfslices > 6 && totalNumOfslices < 10){
-      pricesName.push('10 inch',8);
+      pricesName.push({name:'10 inch',price :8});
      
     } else if(totalNumOfslices > 10 && totalNumOfslices < 15){
-      pricesName.push('15 inch',12);
+      pricesName.push({name:'15 inch',price :12});
       
     } else if(totalNumOfslices > 15 && totalNumOfslices < 24){
-      pricesName.push('24 inch',18);
+      pricesName.push({name:'24 inch',price :18});
     
     } else {
-      //if(totalNumOfslices % 24 > 1)
+      let remainder = totalNumOfslices % 24
+      if(remainder < 4){
+        pricesName.push({name:'5 inch',price :3},{name:'24 inch',price :18});
+      } else if(remainder > 4 && remainder < 6){
+        pricesName.push({name:'7 inch',price :5},{name:'24 inch',price :18});
+      } else if(remainder > 6 && remainder < 10){
+        pricesName.push({name:'10 inch',price :8},{name:'24 inch',price :18});
+      } else if(remainder > 10 && remainder < 15){
+        pricesName.push({name:'15 inch',price :12},{name:'24 inch',price :18});
+      } else if(remainder > 15 && remainder < 24){
+        pricesName.push({name:'24 inch',price :18},{name:'24 inch',price :18});
+      }
     }
+    console.log(pricesName)
+
+    setLIst(pricesName);
   }
 
   return (
@@ -45,6 +61,11 @@ function App() {
       </label><br/><br/>
       
       <input type="submit" value="Submit" onClick={calValue}/>
+      {
+        list?.map(item => {
+          <li>pizza : {item.name}_____ prices : {item.price}</li>
+        })
+      }
 
     </div>
   );
